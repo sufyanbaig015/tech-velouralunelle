@@ -1,0 +1,57 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    @apply scroll-smooth;
+    color-scheme: dark;
+  }
+
+  [id] {
+    scroll-margin-top: 6rem;
+  }
+
+  body {
+    @apply bg-background font-sans text-body antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-heading tracking-tight text-heading;
+  }
+
+  :focus-visible {
+    @apply rounded-md outline outline-2 outline-offset-2 outline-accent;
+  }
+
+  ::selection {
+    @apply bg-primary/40 text-heading;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+}
+
+@layer components {
+  /* Large display headings: white fading to slate, like light hitting glass. */
+  .text-gradient {
+    @apply bg-heading-gradient bg-clip-text pb-1 text-transparent;
+  }
+
+  /* Frosted glass panel used for cards and the floating header. */
+  .glass {
+    @apply border bg-surface/60 shadow-soft backdrop-blur-xl;
+  }
+}
