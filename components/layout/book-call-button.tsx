@@ -1,8 +1,8 @@
 import { CalendarDays } from "lucide-react";
+import Link from "next/link";
 import type { ComponentProps } from "react";
 
 import { Button } from "@/components/ui/button";
-import { siteConfig } from "@/lib/site";
 
 type BookCallButtonProps = Pick<ComponentProps<typeof Button>, "variant" | "size" | "className"> & {
   label?: string;
@@ -11,11 +11,10 @@ type BookCallButtonProps = Pick<ComponentProps<typeof Button>, "variant" | "size
 export function BookCallButton({ label = "Book a Call", variant = "gradient", ...props }: BookCallButtonProps) {
   return (
     <Button asChild variant={variant} {...props}>
-      <a href={siteConfig.calendlyUrl} target="_blank" rel="noopener noreferrer">
+      <Link href="/book">
         <CalendarDays aria-hidden="true" />
         {label}
-        <span className="sr-only">(opens in a new tab)</span>
-      </a>
+      </Link>
     </Button>
   );
 }

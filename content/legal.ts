@@ -21,7 +21,8 @@ export const privacyPolicy: LegalDocument = {
       heading: "Information we collect",
       paragraphs: [
         "When you contact us through the form on this website, we collect the details you choose to share: your name, email address, phone number (optional), company name, the service you're interested in, your budget range, and your message.",
-        "If you email us, message us on WhatsApp, or book a call, we receive the information you provide through those channels.",
+        "When you book a call on this website, we collect your name, email address, the time you choose and your time zone, plus your company, phone number and notes if you add them. We use these to schedule the call, send you the invite and reminders, and let you reschedule or cancel.",
+        "If you email us or message us on WhatsApp, we receive the information you provide through those channels.",
         "Our hosting provider may also record basic technical data, such as your IP address and browser type, to keep the website secure and working properly.",
       ],
     },
@@ -35,7 +36,7 @@ export const privacyPolicy: LegalDocument = {
     {
       heading: "Services we use",
       paragraphs: [
-        "We rely on trusted providers to run this website and our business. These include Resend (to deliver contact form messages to our inbox), Calendly (to schedule calls), WhatsApp (for messaging), and Vercel (to host this website). Each provider handles data under its own privacy policy.",
+        "We rely on trusted providers to run this website and our business. These include Resend (to send contact form messages and booking emails), Google Calendar and Google Meet (to schedule and hold calls), Neon (to store call bookings), WhatsApp (for messaging), and Vercel (to host this website). Each provider handles data under its own privacy policy.",
       ],
     },
     {

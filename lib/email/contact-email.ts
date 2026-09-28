@@ -1,16 +1,5 @@
+import { escapeHtml } from "@/lib/email/escape-html";
 import type { ContactFormValues } from "@/lib/validations/contact";
-
-const htmlEscapes: Record<string, string> = {
-  "&": "&amp;",
-  "<": "&lt;",
-  ">": "&gt;",
-  '"': "&quot;",
-  "'": "&#39;",
-};
-
-function escapeHtml(value: string) {
-  return value.replace(/[&<>"']/g, (char) => htmlEscapes[char]);
-}
 
 // Builds the lead notification email. All user input is escaped before it goes into HTML.
 export function buildContactEmail(data: ContactFormValues) {

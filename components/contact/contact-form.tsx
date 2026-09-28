@@ -1,71 +1,20 @@
 "use client";
 
-import { CircleAlert, CircleCheck, Loader2, Send } from "lucide-react";
+import { CircleCheck, Loader2, Send } from "lucide-react";
 import Link from "next/link";
-import { useEffect, useRef, useState, useTransition, type FormEvent, type ReactNode } from "react";
+import { useEffect, useRef, useState, useTransition, type FormEvent } from "react";
 import { z } from "zod";
 
 import { sendContactMessage } from "@/app/contact/actions";
+import { FormAlert } from "@/components/form-alert";
+import { FormField } from "@/components/form-field";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { NativeSelect } from "@/components/ui/native-select";
 import { Textarea } from "@/components/ui/textarea";
-import { cn } from "@/lib/utils";
 import { contactSchema, type ContactField, type ContactFieldErrors } from "@/lib/validations/contact";
 
 const fieldOrder: ContactField[] = ["name", "email", "phone", "company", "service", "budget", "message"];
-
-type ControlProps = {
-  id: string;
-  name: ContactField;
-  required?: boolean;
-  "aria-invalid"?: boolean;
-  "aria-describedby"?: string;
-};
-
-type FieldProps = {
-  name: ContactField;
-  label: string;
-  required?: boolean;
-  error?: string;
-  className?: string;
-  children: (props: ControlProps) => ReactNode;
-};
-
-function Field({ name, label, required = false, error, className, children }: FieldProps) {
-  const id = `contact-${name}`;
-  const errorId = `${id}-error`;
-
-  return (
-    <div className={cn("space-y-2", className)}>
-      <Label htmlFor={id}>
-        {label}
-        {required ? (
-          <span className="text-danger" aria-hidden="true">
-            {" "}
-            *
-          </span>
-        ) : (
-          <span className="font-normal text-body"> (optional)</span>
-        )}
-      </Label>
-      {children({
-        id,
-        name,
-        required,
-        "aria-invalid": error ? true : undefined,
-        "aria-describedby": error ? errorId : undefined,
-      })}
-      {error && (
-        <p id={errorId} className="flex items-center gap-1.5 text-sm font-medium text-danger">
-          <CircleAlert className="size-4 shrink-0" aria-hidden="true" />
-          {error}
-        </p>
-      )}
-    </div>
-  );
-}
 
 type ContactFormProps = {
   serviceOptions: string[];
@@ -149,30 +98,22 @@ export function ContactForm({ serviceOptions, budgetOptions, success, fallbackEm
 
   return (
     <form ref={formRef} noValidate onSubmit={handleSubmit} onChange={clearError} className="relative space-y-6">
-      {formError && (
-        <div
-          role="alert"
-          className="flex items-start gap-3 rounded-xl border border-danger/30 bg-danger-soft p-4 text-sm font-medium text-danger"
-        >
-          <CircleAlert className="mt-0.5 size-5 shrink-0" aria-hidden="true" />
-          {formError}
-        </div>
-      )}
+      {formError && <FormAlert>{formError}</FormAlert>}
 
       <div className="grid gap-5 sm:grid-cols-2">
-        <Field name="name" label="Full name" required error={error("name")}>
+        <FormField idPrefix="contact" name="name" label="Full name" required error={error("name")}>
           {(props) => <Input {...props} type="text" autoComplete="name" placeholder="Jane Smith" />}
-        </Field>
-        <Field name="email" label="Email" required error={error("email")}>
+        </FormField>
+        <FormField idPrefix="contact" name="email" label="Email" required error={error("email")}>
           {(props) => <Input {...props} type="email" autoComplete="email" placeholder="jane@company.com" />}
-        </Field>
-        <Field name="phone" label="Phone" error={error("phone")}>
+        </FormField>
+        <FormField idPrefix="contact" name="phone" label="Phone" error={error("phone")}>
           {(props) => <Input {...props} type="tel" autoComplete="tel" placeholder="+1 555 123 4567" />}
-        </Field>
-        <Field name="company" label="Company" required error={error("company")}>
+        </FormField>
+        <FormField idPrefix="contact" name="company" label="Company" required error={error("company")}>
           {(props) => <Input {...props} type="text" autoComplete="organization" placeholder="Your business name" />}
-        </Field>
-        <Field name="service" label="Service needed" required error={error("service")}>
+        </FormField>
+        <FormField idPrefix="contact" name="service" label="Service needed" required error={error("service")}>
           {(props) => (
             <NativeSelect {...props} defaultValue="">
               <option value="">
@@ -185,8 +126,8 @@ export function ContactForm({ serviceOptions, budgetOptions, success, fallbackEm
               ))}
             </NativeSelect>
           )}
-        </Field>
-        <Field name="budget" label="Budget range" required error={error("budget")}>
+        </FormField>
+        <FormField idPrefix="contact" name="budget" label="Budget range" required error={error("budget")}>
           {(props) => (
             <NativeSelect {...props} defaultValue="">
               <option value="">
@@ -199,8 +140,8 @@ export function ContactForm({ serviceOptions, budgetOptions, success, fallbackEm
               ))}
             </NativeSelect>
           )}
-        </Field>
-        <Field name="message" label="Project details" required error={error("message")} className="sm:col-span-2">
+        </FormField>
+        <FormField idPrefix="contact" name="message" label="Project details" required error={error("message")} className="sm:col-span-2">
           {(props) => (
             <Textarea
               {...props}
@@ -208,7 +149,7 @@ export function ContactForm({ serviceOptions, budgetOptions, success, fallbackEm
               placeholder="What do you want to build or improve? Any deadlines, links, or examples you like?"
             />
           )}
-        </Field>
+        </FormField>
       </div>
 
       {/* Honeypot: hidden from people and screen readers. Bots that fill it are ignored. */}

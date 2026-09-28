@@ -7,8 +7,6 @@ export const siteConfig = {
   /** Date the page content last changed. Update it when you edit /content, so the sitemap stays accurate. */
   contentUpdated: "2026-09-28",
   email: "hello@velouralunelle.com",
-  calendlyUrl:
-    process.env.NEXT_PUBLIC_CALENDLY_URL ?? "https://calendly.com/velouralunelle/free-consultation",
   whatsappNumber: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "15555550123",
   socials: {
     linkedin: "https://www.linkedin.com/company/velouralunelle",
